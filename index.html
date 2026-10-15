@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIAP UJI - Bahasa Indonesia Kelas VI</title>
+<style>
+:root{--g:#087447;--g2:#0b9460;--bg:#edf7ef;--ink:#18372a;--gold:#ffd166;--white:#fff;--red:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#075638,#129466);color:white;text-align:center;padding:20px 12px}
+.logo{width:75px;height:75px;object-fit:contain;background:white;border-radius:50%;padding:4px;border:3px solid var(--gold)}
+header h1{margin:8px 0;font-size:clamp(22px,4vw,32px)}
+header p{margin:5px auto;max-width:700px;line-height:1.5}
+main{max-width:1000px;margin:24px auto;padding:0 14px 30px}
+.card{background:white;border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 5px 20px #163d2410}
+h2{color:var(--g);margin-top:0}
+h3{margin-top:0}
+input[type=text],input[type=password],textarea,select{width:100%;padding:12px;border:1px solid #cbdacf;border-radius:9px;font:inherit;background:white}
+label{font-weight:bold;display:block;margin:14px 0 7px}
+button,.btn{border:0;border-radius:9px;padding:12px 18px;background:var(--g);color:white;font-weight:bold;cursor:pointer;font-size:15px}
+button:hover,.btn:hover{background:var(--g2)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.primary{width:100%;margin-top:18px}
+.secondary{background:#e6f2e9;color:var(--g)}
+.danger{background:#fbe9e7;color:#a12622}
+.hidden{display:none!important}
+.hint{font-size:13px;line-height:1.6;color:#63766b}
+#error{color:#a12622;background:#ffefed;padding:10px;border-radius:8px;margin-top:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stat{background:#eaf6ed;border-radius:12px;padding:12px;text-align:center}
+.stat strong{display:block;color:var(--g);font-size:22px;margin-top:5px}
+.progress{height:12px;background:#e3eae4;border-radius:20px;overflow:hidden;margin:10px 0 18px}
+#progressBar{height:100%;width:0;background:linear-gradient(90deg,#087447,#56c98d);transition:width .2s}
+.question{border:1px solid #e0eae2;border-radius:13px;padding:17px;margin:15px 0}
+.question h3{font-size:16px;line-height:1.5}
+.qtype{font-size:11px;color:#087447;font-weight:bold;text-transform:uppercase;letter-spacing:.5px}
+.option{display:flex;gap:10px;align-items:flex-start;padding:10px;margin:6px 0;border-radius:8px;background:#f6faf6;font-weight:normal;line-height:1.5;cursor:pointer}
+.option input{margin-top:4px;accent-color:var(--g);flex:none}
+.passage{background:#fff9e8;border-left:5px solid #f1bf43;border-radius:9px;padding:15px;line-height:1.7;margin:12px 0}
+.match-row{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;align-items:center;margin:10px 0}
+.match-row span{line-height:1.5}
+.result-score{font-size:48px;font-weight:bold;color:var(--g);text-align:center}
+.result-sub{text-align:center;color:#617267}
+.review-item{padding:12px 0;border-bottom:1px solid #e1e9e2;line-height:1.6}
+.correct{color:#087447;font-weight:bold}
+.wrong{color:#bd3027;font-weight:bold}
+.badge{display:inline-block;background:#fff0b8;color:#765400;border-radius:30px;padding:8px 14px;font-weight:bold}
+footer{text-align:center;color:#65766b;padding:20px;font-size:13px}
+@media(max-width:560px){.card{padding:17px}.stats{grid-template-columns:1fr 1fr}.match-row{grid-template-columns:1fr}.result-score{font-size:40px}}
+@media print{header,#login,#exam,#result button,footer{display:none!important}body{background:white}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo"
+    src="https://upload.wikimedia.org/wikipedia/commons/4/49/Tut_Wuri_Handayani.png"
+    alt="Tut Wuri Handayani" onerror="this.style.display='none'">
+  <h1>🎮 SIAP UJI</h1>
+  <p>Sistem Interaktif Asesmen Pembelajaran untuk Uji Kompetensi</p>
+  <p><strong>SD Negeri Denanyar 1 · Tangen</strong></p>
+  <p>Game Edukatif Bahasa Indonesia Kelas VI</p>
+</header>
+
+<main>
+<section id="login" class="card">
+  <h2>🌟 Selamat Datang, Petualang Literasi!</h2>
+  <p>Bab 1: <strong>Bangga Menjadi Anak Indonesia</strong></p>
+  <p>Masuk terlebih dahulu untuk memulai tantangan Bahasa Indonesia.</p>
+  <form id="loginForm">
+    <label for="username">Username — Nama lengkap siswa</label>
+    <input id="username" list="namaSiswa" type="text" placeholder="Pilih atau ketik nama lengkap" required>
+    <datalist id="namaSiswa"></datalist>
+    <label for="password">Password — NIPD</label>
+    <input id="password" type="password" inputmode="numeric" placeholder="Masukkan NIPD" required>
+    <button class="primary" type="submit">🚀 Masuk dan Mulai</button>
+    <div id="error" class="hidden" role="alert"></div>
+  </form>
+  <p class="hint">Gunakan nama dan NIPD sesuai daftar dari sekolah. Bacalah teks dengan teliti dan kerjakan semua tantangan dengan jujur.</p>
+</section>
+
+<section id="exam" class="hidden">
+  <div class="card">
+    <h2>🏆 Misi Literasi Indonesia</h2>
+    <p>Peserta: <strong id="activeName"></strong></p>
+    <div class="stats">
+      <div class="stat">Jumlah soal<strong>40</strong></div>
+      <div class="stat">Terjawab<strong id="answered">0/40</strong></div>
+      <div class="stat">Poin sementara<strong id="liveScore">0</strong></div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p class="hint">Poin sementara dihitung dari jawaban objektif yang sudah benar. Nilai akhir akan muncul setelah semua jawaban dikirim.</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 Baca Cerita: “Aku Anak Indonesia”</h2>
+    <div class="passage">
+      Namaku Nara. Aku tinggal di sebuah desa di Indonesia. Suatu hari, sekolahku mengadakan kegiatan pentas budaya. Aku diminta membacakan puisi di depan teman-teman. Awalnya, aku merasa gugup karena takut salah mengucapkan kata-kata. Ibu guru tersenyum dan berkata bahwa aku harus berlatih serta percaya pada kemampuan diri sendiri.<br><br>
+      Aku berlatih setiap sore. Saat hari pentas tiba, aku menarik napas dan mulai membaca puisi. Teman-teman memberikan tepuk tangan. Aku merasa lega dan bangga. Aku sadar bahwa Indonesia memiliki banyak bahasa daerah, kesenian, dan tradisi yang patut dihargai. Walaupun berbeda-beda, kami tetap berteman dan saling menghormati.
+    </div>
+    <p class="hint">Gunakan cerita tersebut untuk menjawab soal yang berkaitan dengan tokoh, perasaan, kekhawatiran, alur, dan kebanggaan menjadi anak Indonesia.</p>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Tantangan 1 — Pilihan Ganda</h2>
+    <p class="hint">Pilih satu jawaban yang paling tepat. Setiap soal bernilai 2 poin.</p>
+    <div id="mcQuestions"></div>
+  </div>
+
+  <div class="card">
+    <h2>🧠 Tantangan 2 — Pilihan Ganda Kompleks</h2>
+    <p class="hint">Pilih semua jawaban yang benar. Setiap soal bernilai 4 poin jika seluruh pilihan tepat.</p>
+    <div id="complexQuestions"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Tantangan 3 — Menjodohkan</h2>
+    <p class="hint">Pilih pasangan yang sesuai. Setiap pasangan benar bernilai 2 poin.</p>
+    <div id="matchQuestions"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ Tantangan 4 — Isian Singkat</h2>
+    <p class="hint">Tuliskan jawaban singkat dengan tepat. Setiap jawaban benar bernilai 2 poin.</p>
+    <div id="shortQuestions"></div>
+  </div>
+
+  <div class="card">
+    <h2>🌟 Tantangan 5 — Uraian</h2>
+    <p class="hint">Jawablah dengan kalimat yang jelas. Setiap soal dinilai guru dengan skor 0–4 poin.</p>
+    <div id="essayQuestions"></div>
+  </div>
+
+  <div class="card">
+    <h2>📨 Siap Mengirim Jawaban?</h2>
+    <p>Periksa kembali jawabanmu. Jawaban pilihan ganda, kompleks, menjodohkan, dan isian akan dinilai otomatis. Jawaban uraian perlu diperiksa guru.</p>
+    <button id="submitBtn" class="primary" type="button">🏁 Kirim Jawaban dan Lihat Hasil</button>
+    <p class="hint">Setelah dikirim, jawaban akan ditampilkan dalam halaman hasil.</p>
+  </div>
+</section>
+
+<section id="result" class="hidden">
+  <div class="card">
+    <h2>🎉 Misi Selesai!</h2>
+    <p id="resultName"></p>
+    <div class="result-score" id="score">0</div>
+    <p class="result-sub">Nilai sementara dari 100 poin</p>
+    <p class="result-sub" id="badgeText"></p>
+    <div class="stats">
+      <div class="stat">Pilihan ganda<strong id="mcScore">0/30</strong></div>
+      <div class="stat">Kompleks<strong id="complexScore">0/20</strong></div>
+      <div class="stat">Menjodohkan<strong id="matchScore">0/10</strong></div>
+      <div class="stat">Isian singkat<strong id="shortScore">0/20</strong></div>
+      <div class="stat">Uraian<strong id="essayScore">Belum dinilai</strong></div>
+      <div class="stat">Jawaban benar objektif<strong id="correctCount">0</strong></div>
+    </div>
+    <p class="hint">Nilai akhir akan lengkap setelah guru menilai lima jawaban uraian. Maksimal nilai uraian adalah 20 poin.</p>
+    <button id="reviewBtn" type="button">🔍 Lihat Pembahasan</button>
+    <button id="printBtn" class="secondary" type="button">🖨️ Cetak Hasil</button>
+    <button id="newBtn" class="secondary" type="button">Kembali ke Login</button>
+  </div>
+  <div id="review" class="card hidden">
+    <h2>📚 Pembahasan Jawaban</h2>
+    <div id="reviewContent"></div>
+  </div>
+</section>
+</main>
+
+<footer>SIAP UJI · SD Negeri Denanyar 1 · Belajar dengan gembira, jujur, dan percaya diri.</footer>
+
+<script>
+const students = [
+["ABID ALVARO GAVRIEL","2759"],
+["AFFIN CHARLISA ACHYARNIS","2760"],
+["ALBY FAREL AXEL FAIRUS","2761"],
+["ANGGRAITA DARA KUSUMANINGRUM","2762"],
+["ARGA ADAM ALFATIR","2763"],
+["ARIF AZHARI SETIAWAN","2764"],
+["AZIZ SATRIO PRAMBUDI","2765"],
+["AZKA KHOIRUNNISA","2766"],
+["BILQIS ZAHIRA ALYA AZIZA","2820"],
+["DANIEL IRKHAM YUNIANTO","2767"],
+["DELTA DANIES WICAKSONO","2768"],
+["ELVINA NOVITA SARI","2769"],
+["FATIN DESTIANA SHIDQIA","2770"],
+["IAN THU ALFIAN","2771"],
+["KHALISA ZAHRA RAMADHANI","2772"],
+["LABIBAH ANINDYA JIHAN TALITA ULFA","2774"],
+["MAYDA NURUL AZKIA","2775"],
+["MUHAMMAD AMIRRUDIN","2776"],
+["MUHAMMAD EZA HAFIZ ADITIYA","2777"],
+["MUHAMMAD RIFKY CAHYO SAPUTRO","2778"],
+["NURIYA JANNATUN NAIM","2779"],
+["PRABU AHMAD AHNAFI","2780"],
+["QEYLA ABSHARI FIRDA RAHMADANI","2848"],
+["RAHMAT MAULANA","2781"],
+["RAVA'EL DWI VANDIMAS","2782"],
+["RAVE'AL DIMAS PRAYOGA","2783"],
+["RISMACERLYN NUR ISKANDAR","2784"],
+["SAMUEL DESWA ANGGARA","2785"],
+["VAHDIL ASKA HARIANSYAH","2824"]
+];
+
+// PILIHAN GANDA: indeks jawaban benar dimulai dari 0.
+const mc = [
+["Siapakah tokoh utama dalam cerita “Aku Anak Indonesia”?",
+ ["Ibu guru","Nara","Kepala sekolah","Teman Nara"],1,
+ "Nara adalah tokoh yang menceritakan pengalamannya."],
+["Apa yang membuat Nara merasa gugup?",
+ ["Takut salah mengucapkan kata-kata","Tidak memiliki teman","Terlambat datang","Lupa membawa buku"],0,
+ "Nara khawatir salah mengucapkan kata-kata saat membaca puisi."],
+["Apa yang dilakukan ibu guru untuk membantu Nara?",
+ ["Menyuruhnya pulang","Melarangnya tampil","Menyemangati agar berlatih dan percaya diri","Menggantikan Nara"],2,
+ "Ibu guru memberi semangat dan mendorong Nara untuk berlatih."],
+["Apa yang dilakukan Nara sebelum hari pentas?",
+ ["Berhenti berlatih","Berlatih setiap sore","Menghindari teman","Mengganti puisinya"],1,
+ "Nara berlatih setiap sore sebelum pentas budaya."],
+["Bagaimana perasaan Nara setelah membaca puisi?",
+ ["Marah dan kecewa","Sedih dan takut","Lega dan bangga","Bingung dan malu"],2,
+ "Tepuk tangan teman-teman membuat Nara merasa lega dan bangga."],
+["Alur cerita tersebut disampaikan berdasarkan urutan ....",
+ ["Mundur seluruhnya","Acak tanpa urutan","Maju dari persiapan hingga pentas","Berupa daftar peristiwa"],2,
+ "Peristiwa berjalan dari rasa gugup, berlatih, hingga tampil."],
+["Makna kata “gugup” dalam cerita adalah ....",
+ ["Sangat berani","Merasa cemas atau tidak tenang","Sangat gembira","Merasa mengantuk"],1,
+ "Gugup berarti merasa cemas atau kurang tenang."],
+["Kalimat yang menunjukkan kebanggaan terhadap Indonesia adalah ....",
+ ["Aku tidak mau mengenal budaya","Indonesia memiliki banyak bahasa daerah, kesenian, dan tradisi","Aku takut membaca puisi","Aku ingin menghindari pentas"],1,
+ "Kalimat itu menunjukkan penghargaan terhadap kekayaan budaya Indonesia."],
+["Ketika berdiskusi tentang kebanggaan menjadi anak Indonesia, sikap yang tepat adalah ....",
+ ["Memotong pembicaraan","Memaksakan pendapat","Mendengarkan dan menghargai pendapat teman","Menertawakan jawaban teman"],2,
+ "Diskusi yang baik dilakukan dengan saling mendengarkan dan menghargai."],
+["Saat mengisi formulir, data yang harus ditulis sesuai kenyataan adalah ....",
+ ["Nama dan tanggal lahir","Nama samaran yang dibuat sendiri","Alamat teman","Nomor acak"],0,
+ "Data dalam formulir harus benar dan sesuai keadaan."],
+["Manakah contoh informasi penting dari teks nonfiksi?",
+ ["Pendapat tokoh khayalan saja","Fakta tentang peristiwa sejarah","Cerita ajaib tanpa sumber","Mimpi yang tidak dijelaskan"],1,
+ "Teks nonfiksi menyampaikan informasi faktual."],
+["Bahasa Indonesia diikrarkan sebagai bahasa persatuan dalam peristiwa ....",
+ ["Sumpah Pemuda","Proklamasi Kemerdekaan saja","Hari Kartini","Hari Pendidikan Nasional"],0,
+ "Sumpah Pemuda pada 28 Oktober 1928 menegaskan bahasa Indonesia sebagai bahasa persatuan."],
+["Ciri surat resmi adalah ....",
+ ["Bahasa selalu santai","Tidak memiliki tujuan","Menggunakan format dan bahasa formal","Selalu dikirim kepada sahabat"],2,
+ "Surat resmi menggunakan bahasa formal dan susunan yang sesuai."],
+["Bagian yang biasa terdapat dalam surat pribadi adalah ....",
+ ["Nomor surat dinas wajib","Sapaan akrab kepada penerima","Stempel lembaga wajib","Kode arsip kantor"],1,
+ "Surat pribadi dapat menggunakan sapaan akrab sesuai hubungan penulis dan penerima."],
+["Bagian surel yang menunjukkan topik pesan disebut ....",
+ ["Subjek","Lampiran wajib","Tanda tangan basah","Stempel"],0,
+ "Subjek atau subject menjelaskan pokok pesan dalam surel."]
+];
+
+// Pilihan kompleks: seluruh indeks benar harus dipilih, tanpa pilihan tambahan.
+const complex = [
+["Manakah sifat Nara yang tampak setelah berlatih?",
+ ["Tekun","Mau berusaha","Mudah menyerah","Berani mencoba"],[0,1,3],
+ "Nara berlatih, berusaha, dan akhirnya berani tampil."],
+["Manakah sikap yang menunjukkan bangga menjadi anak Indonesia?",
+ ["Menghargai budaya daerah","Mengejek bahasa daerah lain","Menjaga persatuan","Menghormati perbedaan"],[0,2,3],
+ "Kebanggaan diwujudkan melalui penghargaan terhadap budaya dan persatuan."],
+["Data manakah yang biasanya dapat diminta dalam formulir pendaftaran?",
+ ["Nama lengkap","Alamat","Hobi, jika diminta","Kabar rahasia milik teman"],[0,1,2],
+ "Formulir meminta data yang relevan dengan tujuan pengisian."],
+["Manakah ciri surat resmi?",
+ ["Bahasa baku dan sopan","Identitas atau kop lembaga jika diperlukan","Susunan surat teratur","Bahasa gaul sebagai bahasa utama"],[0,1,2],
+ "Surat resmi memakai bahasa formal dan format yang sesuai."],
+["Apa yang perlu diperhatikan saat menulis surel pribadi?",
+ ["Alamat penerima benar","Subjek sesuai isi pesan","Bahasa sesuai penerima dan tujuan","Mengirim pesan kosong tanpa diperiksa"],[0,1,2],
+ "Surel yang baik memiliki penerima yang tepat, subjek yang jelas, dan bahasa yang sesuai."]
+];
+
+// Menjodohkan: pasangan definisi dengan istilah.
+const matching = [
+["Tokoh yang paling banyak menjadi pusat cerita","Tokoh utama"],
+["Urutan peristiwa dalam cerita","Alur"],
+["Lembar untuk mengisi data sesuai kolom","Formulir"],
+["Surat dengan bahasa formal untuk keperluan kedinasan","Surat resmi"],
+["Pesan elektronik yang dikirim melalui internet","Surel"]
+];
+const matchOptions = [
+"Tokoh utama","Alur","Formulir","Surat resmi","Surel"
+];
+
+const shortQs = [
+["Nama tokoh utama dalam cerita “Aku Anak Indonesia” adalah ....",["nara"]],
+["Nara merasa gugup karena takut salah mengucapkan ....",["kata-kata","kata"]],
+["Nara berlatih membaca puisi setiap ....",["sore"]],
+["Perasaan lega dan bangga muncul setelah Nara selesai membaca ....",["puisi"]],
+["Kata yang berarti cemas atau tidak tenang adalah ....",["gugup"]],
+["Bahasa Indonesia diikrarkan sebagai bahasa persatuan dalam peristiwa ....",["sumpah pemuda"]],
+["Surat yang menggunakan bahasa formal dan format kedinasan disebut surat ....",["resmi"]],
+["Surat yang ditulis untuk sahabat atau keluarga dapat disebut surat ....",["pribadi"]],
+["Bagian surel yang menjelaskan pokok pesan disebut ....",["subjek","subject"]],
+["Informasi yang benar-benar terjadi dan dapat dibuktikan disebut ....",["fakta"]]
+];
+
+const essays = [
+["Jelaskan dua perasaan yang dialami Nara dalam cerita dan penyebabnya!"],
+["Tuliskan tiga urutan peristiwa dalam cerita dari awal, tengah, hingga akhir!"],
+["Sebutkan tiga cara yang dapat kamu lakukan untuk menunjukkan kebanggaan menjadi anak Indonesia!"],
+["Jelaskan dua perbedaan antara surat resmi dan surat pribadi!"],
+["Tulislah sebuah surel pribadi singkat kepada temanmu tentang kegiatan budaya di sekolah. Sertakan subjek, sapaan, isi, dan penutup!"]
+];
+
+const $ = id => document.getElementById(id);
+const norm = s => s.toLocaleLowerCase("id-ID").trim()
+  .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .replace(/[.,!?;:]/g,"").replace(/\s+/g," ");
+let currentStudent = null;
+let submitted = false;
+let resultData = null;
+
+students.forEach(s=>{
+  const opt=document.createElement("option");
+  opt.value=s[0];
+  $("namaSiswa").appendChild(opt);
+});
+
+function makeQuestion(container, index, title, options, correct, explanation, type) {
+  const box=document.createElement("div");
+  box.className="question";
+  const tag=document.createElement("div");
+  tag.className="qtype";
+  tag.textContent="Soal "+(index+1)+" · "+type;
+  const h=document.createElement("h3");
+  h.textContent=title;
+  box.append(tag,h);
+  options.forEach((op,i)=>{
+    const lab=document.createElement("label");
+    lab.className="option";
+    const input=document.createElement("input");
+    input.type=type==="PILIHAN GANDA KOMPLEKS"?"checkbox":"radio";
+    input.name=(type==="PILIHAN GANDA KOMPLEKS"?"cx":"mc")+index;
+    input.value=i;
+    input.addEventListener("change",updateProgress);
+    const text=document.createElement("span");
+    text.textContent=op;
+    lab.append(input,text);
+    box.appendChild(lab);
+  });
+  container.appendChild(box);
+}
+
+mc.forEach((q,i)=>makeQuestion($("mcQuestions"),i,q[0],q[1],q[2],q[3],"PILIHAN GANDA"));
+complex.forEach((q,i)=>makeQuestion($("complexQuestions"),i,q[0],q[1],q[2],q[3],"PILIHAN GANDA KOMPLEKS"));
+
+matching.forEach((q,i)=>{
+  const box=document.createElement("div");
+  box.className="question";
+  const row=document.createElement("div");
+  row.className="match-row";
+  const text=document.createElement("span");
+  text.innerHTML="<strong>"+(i+1)+".</strong> "+q[0];
+  const select=document.createElement("select");
+  select.id="match"+i;
+  select.innerHTML='<option value="">-- Pilih pasangan --</option>';
+  matchOptions.forEach((op,j)=>{
+    const o=document.createElement("option");
+    o.value=j;o.textContent=op;select.appendChild(o);
+  });
+  select.addEventListener("change",updateProgress);
+  row.append(text,select);box.appendChild(row);
+  $("matchQuestions").appendChild(box);
+});
+
+shortQs.forEach((q,i)=>{
+  const box=document.createElement("div");
+  box.className="question";
+  box.innerHTML='<div class="qtype">Soal '+(i+1)+' · ISIAN SINGKAT</div><h3></h3><input type="text" id="short'+i+'" placeholder="Tulis jawabanmu..." autocomplete="off">';
+  box.querySelector("h3").textContent=q[0];
+  box.querySelector("input").addEventListener("input",updateProgress);
+  $("shortQuestions").appendChild(box);
+});
+
+essays.forEach((q,i)=>{
+  const box=document.createElement("div");
+  box.className="question";
+  box.innerHTML='<div class="qtype">Soal '+(i+1)+' · URAIAN</div><h3></h3><textarea id="essay'+i+'" rows="4" placeholder="Tuliskan jawaban dengan jelas..."></textarea>';
+  box.querySelector("h3").textContent=q[0];
+  box.querySelector("textarea").addEventListener("input",updateProgress);
+  $("essayQuestions").appendChild(box);
+});
+
+$("loginForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=norm($("username").value);
+  const nipd=$("password").value.trim();
+  currentStudent=students.find(s=>norm(s[0])===name && s[1]===nipd);
+  if(!currentStudent){
+    $("error").textContent="Nama atau NIPD tidak cocok. Silakan periksa kembali.";
+    $("error").classList.remove("hidden");
+    return;
+  }
+  $("error").classList.add("hidden");
+  $("activeName").textContent=currentStudent[0];
+  $("login").classList.add("hidden");
+  $("exam").classList.remove("hidden");
+  window.scrollTo(0,0);
+});
+
+function selectedRadio(group) {
+  const el=document.querySelector('input[name="'+group+'"]:checked');
+  return el?Number(el.value):null;
+}
+function selectedChecks(group) {
+  return [...document.querySelectorAll('input[name="'+group+'"]:checked')]
+    .map(el=>Number(el.value)).sort((a,b)=>a-b);
+}
+function sameArray(a,b) {
+  return a.length===b.length && a.every((v,i)=>v===b[i]);
+}
+function getResults() {
+  let mcs=0,cxs=0,ms=0,ss=0,correctCount=0;
+  const review=[];
+  mc.forEach((q,i)=>{
+    const a=selectedRadio("mc"+i);
+    const ok=a===q[2];
+    if(ok){mcs+=2;correctCount++;}
+    review.push({title:"Pilihan ganda "+(i+1),answer:a===null?"Belum dijawab":q[1][a],correct:q[1][q[2]],ok,why:q[3]});
+  });
+  complex.forEach((q,i)=>{
+    const a=selectedChecks("cx"+i);
+    const ok=sameArray(a,q[2]);
+    if(ok){cxs+=4;correctCount++;}
+    review.push({title:"Pilihan ganda kompleks "+(i+1),answer:a.length?a.map(j=>q[1][j]).join(", "):"Belum dijawab",correct:q[2].map(j=>q[1][j]).join(", "),ok,why:q[3]});
+  });
+  matching.forEach((q,i)=>{
+    const a=$("match"+i).value;
+    const ok=a!=="" && Number(a)===i;
+    if(ok){ms+=2;correctCount++;}
+    review.push({title:"Menjodohkan "+(i+1),answer:a===""?"Belum dijawab":matchOptions[Number(a)],correct:q[1],ok,why:"Pasangan yang tepat: "+q[1]+". "});
+  });
+  shortQs.forEach((q,i)=>{
+    const a=$("short"+i).value.trim();
+    const ok=q[1].includes(norm(a));
+    if(ok){ss+=2;correctCount++;}
+    review.push({title:"Isian singkat "+(i+1),answer:a||"Belum dijawab",correct:q[1][0],ok,why:"Jawaban yang diharapkan: "+q[1].join(" / ")+". "});
+  });
+  return {mcs,cxs,ms,ss,correctCount,review};
+}
+
+function updateProgress(){
+  if(submitted)return;
+  const controls=[...$("exam").querySelectorAll('input[type=radio]:checked,input[type=checkbox]:checked,input[type=text],textarea,select')];
+  const answered=controls.filter(el=>el.value.trim()!=="").length;
+  $("answered").textContent=answered+"/40";
+  $("progressBar").style.width=(answered/40*100)+"%";
+  const r=getResults();
+  $("liveScore").textContent=r.mcs+r.cxs+r.ms+r.ss;
+}
+
+$("submitBtn").addEventListener("click",()=>{
+  const ok=confirm("Kirim semua jawaban sekarang? Pastikan jawaban sudah diperiksa.");
+  if(!ok)return;
+  submitted=true;
+  resultData=getResults();
+  const objective=resultData.mcs+resultData.cxs+resultData.ms+resultData.ss;
+  $("resultName").textContent="Nama siswa: "+currentStudent[0]+" · NIPD: "+currentStudent[1];
+  $("score").textContent=objective+"/100";
+  $("mcScore").textContent=resultData.mcs+"/30";
+  $("complexScore").textContent=resultData.cxs+"/20";
+  $("matchScore").textContent=resultData.ms+"/10";
+  $("shortScore").textContent=resultData.ss+"/20";
+  $("essayScore").textContent="Belum dinilai /20";
+  $("correctCount").textContent=resultData.correctCount+"/35";
+  $("badgeText").innerHTML=objective>=70
+    ?'<span class="badge">🏅 Pejuang Literasi Hebat!</span>'
+    :objective>=50
+    ?'<span class="badge">⭐ Semangat Belajar!</span>'
+    :'<span class="badge">🌱 Terus Berlatih!</span>';
+  const review=$("reviewContent");
+  review.innerHTML="";
+  resultData.review.forEach(r=>{
+    const div=document.createElement("div");
+    div.className="review-item";
+    const status=document.createElement("div");
+    status.className=r.ok?"correct":"wrong";
+    status.textContent=(r.ok?"✓ Benar":"✗ Perlu diperbaiki")+" — "+r.title;
+    const answer=document.createElement("div");
+    answer.textContent="Jawabanmu: "+r.answer;
+    const correct=document.createElement("div");
+    correct.textContent="Kunci: "+r.correct;
+    const why=document.createElement("div");
+    why.className="hint";why.textContent=r.why;
+    div.append(status,answer,correct,why);
+    review.appendChild(div);
+  });
+  essays.forEach((q,i)=>{
+    const div=document.createElement("div");
+    div.className="review-item";
+    const h=document.createElement("strong");
+    h.textContent="Jawaban uraian "+(i+1);
+    const p=document.createElement("p");
+    p.textContent=$("essay"+i).value.trim()||"Belum dijawab";
+    div.append(h,p);
+    review.appendChild(div);
+  });
+  $("exam").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  window.scrollTo(0,0);
+});
+
+$("reviewBtn").addEventListener("click",()=>{
+  $("review").classList.toggle("hidden");
+  $("reviewBtn").textContent=$("review").classList.contains("hidden")?"🔍 Lihat Pembahasan":"Sembunyikan Pembahasan";
+});
+$("printBtn").addEventListener("click",()=>window.print());
+$("newBtn").addEventListener("click",()=>{
+  if(!confirm("Kembali ke halaman login? Jawaban pada sesi ini tidak akan disimpan."))return;
+  $("result").classList.add("hidden");
+  $("exam").classList.add("hidden");
+  $("login").classList.remove("hidden");
+  $("review").classList.add("hidden");
+  $("loginForm").reset();
+  $("exam").querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>el.checked=false);
+  $("exam").querySelectorAll('input[type=text],textarea').forEach(el=>el.value="");
+  $("exam").querySelectorAll("select").forEach(el=>el.selectedIndex=0);
+  $("answered").textContent="0/40";$("progressBar").style.width="0%";$("liveScore").textContent="0";
+  $("reviewBtn").textContent="🔍 Lihat Pembahasan";
+  currentStudent=null;submitted=false;resultData=null;
+  window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>
